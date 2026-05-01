@@ -96,3 +96,5 @@ function playGame()
         console.log('Computer wins!\nFinal Scores\nUser:', humanScore, 'v/s Computer:', computerScore);
     }
 }
+
+playGame();
