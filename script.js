@@ -82,10 +82,6 @@ function playRound(getComputerChoice, getHumanChoice)
 function playGame()
 {
     playRound(getComputerChoice, getHumanChoice);
-    playRound(getComputerChoice, getHumanChoice);
-    playRound(getComputerChoice, getHumanChoice);
-    playRound(getComputerChoice, getHumanChoice);
-    playRound(getComputerChoice, getHumanChoice);
 
     if(humanScore > computerScore)
     {
