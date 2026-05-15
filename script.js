@@ -15,37 +15,71 @@ function getComputerChoice()
     }
 }
 
-function getHumanChoice()
+function showWinner(humanScore, computerScore)
 {
-    const userChoice = prompt('Rock, Paper or Scissors?: ').toLowerCase();
-    return userChoice;
+    if(humanScore > computerScore)
+    {
+        endDiv.innerHTML = `User wins! <br><br>Final Scores<br>User: ${humanScore} v/s Computer: ${computerScore}`;
+    }
+        else
+    {
+        endDiv.innerHTML = `Computer wins! <br><br>Final Scores<br>User: ${humanScore} v/s Computer: ${computerScore}`;
+    }
 }
 
 let computerScore = 0;
 let humanScore = 0;
+let humanSelection;
 
-function playRound(getComputerChoice, getHumanChoice)
+//human selection scenarios
+    const rock = document.querySelector("#rock");
+    rock.addEventListener("click", () => 
+        {
+            humanSelection = 'rock';
+            playRound(humanSelection)
+        });
+
+    const paper = document.querySelector("#paper");
+    paper.addEventListener("click", () => 
+        {
+            humanSelection = 'paper';
+            playRound(humanSelection)
+        });
+
+    const scissors = document.querySelector("#scissors");
+    scissors.addEventListener("click", () => 
+        {
+            humanSelection = 'scissors';
+            playRound(humanSelection)
+        });
+    
+    const resultDiv = document.querySelector("#results"); 
+    const scoreDiv = document.querySelector("#score");
+    const endDiv = document.querySelector("#endtext");
+
+function playRound(humanSelection)
 {
-    const humanSelection = getHumanChoice();
+    //Computer Selection
     const computerSelection = getComputerChoice();
 
     if(humanSelection == computerSelection)
     {
-        console.log('It\'s a Tie! Try Again!\n');
-        playRound(getComputerChoice, getHumanChoice);
+        resultDiv.innerHTML = "It's a Tie! Try Again!";
     }
+
     else
     {
         if(humanSelection == 'rock')     
         {
             if(computerSelection == 'paper')
             {
-            console.log('Computer\'s Selection: Paper\nYour Selection: Rock\nPaper Beats Rock\n1 Point to computer!');
+            resultDiv.innerHTML = "Computer's Selection: Paper<br>Your Selection: Rock<br>Paper Beats Rock<br>1 Point to computer!";
             computerScore++;
             }
+            
             else if(computerSelection == 'scissors')
             {
-            console.log('Computer\'s Selection: Scissors\nYour Selection: Rock\nRock Beats Scissors\n1 Point to User!');
+            resultDiv.innerHTML = "Computer's Selection: Scissors<br>Your Selection: Rock<br>Rock Beats Scissors<br>1 Point to User!";
             humanScore++;
             }
         }
@@ -53,44 +87,39 @@ function playRound(getComputerChoice, getHumanChoice)
         {
             if(computerSelection == 'scissors')
             {
-            console.log('Computer\'s Selection: Scissors\nYour Selection: Paper\nScissors Beats Paper\n1 Point to computer!');
+            resultDiv.innerHTML = "Computer's Selection: Scissors<br>Your Selection: Paper<br>Scissors Beats Paper<br>1 Point to computer!";
             computerScore++;
             }
+
             else if(computerSelection == 'rock')
             {
-            console.log('Computer\'s Selection: Rock\nYour Selection: Paper\nPaper Beats Rock\n1 Point to User!');
+            resultDiv.innerHTML = "Computer's Selection: Rock<br>Your Selection: Paper<br>Paper Beats Rock<br>1 Point to User!";
             humanScore++;
             }
         }
+        
         else if(humanSelection == 'scissors')     
         {
             if(computerSelection == 'rock')
             {
-            console.log('Computer\'s Selection: Rock\nYour Selection: Scissors\nRock Beats Scissors\n1 Point to computer!');
+            resultDiv.innerHTML = "Computer's Selection: Rock<br>Your Selection: Scissors<br>Rock Beats Scissors<br>1 Point to computer!";
             computerScore++;
             }
+
             else if(computerSelection == 'paper')
             {
-            console.log('Computer\'s Selection: Paper\nYour Selection: Scissors\nScissors Beats Paper\n1 Point to User!');
+            resultDiv.innerHTML = "Computer's Selection: Paper<br>Your Selection: Scissors<br>Scissors Beats Paper<br>1 Point to User!";
             humanScore++;
             }
         }
     }
-    console.log('Your Score:', humanScore, '\nComputer Score:', computerScore)
+    scoreDiv.innerHTML = `Your Score: ${humanScore}<br>Computer Score: ${computerScore}`;
+
+    if(humanScore == 3 || computerScore == 3) 
+        {
+            showWinner(humanScore, computerScore);
+            rock.disabled = true;
+            paper.disabled = true;
+            scissors.disabled = true;
+        }
 }
-
-function playGame()
-{
-    playRound(getComputerChoice, getHumanChoice);
-
-    if(humanScore > computerScore)
-    {
-        console.log('User wins!\nFinal Scores\nUser:', humanScore, 'v/s Computer:', computerScore);
-    }
-    else
-    {
-        console.log('Computer wins!\nFinal Scores\nUser:', humanScore, 'v/s Computer:', computerScore);
-    }
-}
-
-playGame();
